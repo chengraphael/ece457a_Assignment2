@@ -51,10 +51,16 @@ public class QuestionOne {
     }
 
     public void generatePositions() {
-        startX = ThreadLocalRandom.current().nextInt(0, gridLength);
-        startY = ThreadLocalRandom.current().nextInt(0, gridLength);
-        exitX = ThreadLocalRandom.current().nextInt(0, gridLength);
-        exitY = ThreadLocalRandom.current().nextInt(0, gridLength);
+        do {
+            startX = ThreadLocalRandom.current().nextInt(0, gridLength);
+            startY = ThreadLocalRandom.current().nextInt(0, gridLength);
+        } while (walls.get(startX).contains(startY));
+
+        do {
+            exitX = ThreadLocalRandom.current().nextInt(0, gridLength);
+            exitY = ThreadLocalRandom.current().nextInt(0, gridLength);
+        } while (walls.get(exitX).contains(exitY));
+
         System.out.println("Start: (" + startX + ", " + startY +")");
         System.out.println("End: (" + exitX + ", " + exitY +")");
     }
