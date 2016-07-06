@@ -203,7 +203,7 @@ public class QuestionOne {
     }
 
     public void useAStar() {
-        Queue<Node> queue = new LinkedList<>();
+        List<Node> queue = new LinkedList<>();
         HashSet<Integer> hashset = new HashSet<>();
 
         Node node = new Node(startX, startY);
@@ -212,7 +212,7 @@ public class QuestionOne {
 
         while(!queue.isEmpty()) {
             List<Node> list = new ArrayList<>();
-            Node currentNode = queue.remove();
+            Node currentNode = queue.remove(0);
             if (currentNode.x == exitX && currentNode.y == exitY) {
                 currentNode.print();
                 break;
@@ -269,7 +269,9 @@ public class QuestionOne {
                 hashset.add((currentX) * gridLength + (currentY + 1));
             }
 
-            Collections.sort(list, new Comparator<Node>() {
+            queue.addAll(list);
+
+            Collections.sort(queue, new Comparator<Node>() {
                 @Override
                 public int compare(Node o1, Node o2) {
                     if (o1.realDistance == o2.realDistance)
@@ -277,8 +279,6 @@ public class QuestionOne {
                     return o1.realDistance < o2.realDistance ? -1 : 1;
                 }
             });
-
-            queue.addAll(list);
         }
     }
 }
