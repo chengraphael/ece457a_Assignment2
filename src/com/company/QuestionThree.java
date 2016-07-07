@@ -63,9 +63,9 @@ public class QuestionThree {
 
             for (int i = 0; i < 20; i++) {
                 for (int j = i + 1; j < 20; j++) {
-                    List<DeptNode> tempList = new ArrayList<DeptNode>(list);
-                    tempList.set(i, list.get(j));
-                    tempList.set(j, list.get(i));
+                    List<DeptNode> tempList = new ArrayList<>(list);
+                    tempList.get(i).deptNo = list.get(j).deptNo;
+                    tempList.get(j).deptNo = list.get(i).deptNo;
                     Pair pair = new Pair(i, j, heuristicFunction(tempList));
                     candidateList.add(pair);
                 }
@@ -77,9 +77,12 @@ public class QuestionThree {
             }
 
             // Swap
-            DeptNode tempNode = list.get(pair.i);
-            list.set(pair.i, list.get(pair.j));
-            list.set(pair.j, tempNode);
+//            DeptNode tempNode = list.get(pair.i);
+//            list.set(pair.i, list.get(pair.j));
+//            list.set(pair.j, tempNode);
+            int tempDept = list.get(pair.i).deptNo;
+            list.get(pair.i).deptNo = list.get(pair.j).deptNo;
+            list.get(pair.j).deptNo = tempDept;
             cost = pair.cost;
 
             for (int[] array : tabuList) {
