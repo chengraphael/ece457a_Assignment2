@@ -13,7 +13,9 @@ public class Main {
 //        System.out.println("Using A* search...");
 //        q1.useAStar();
 
-        QuestionThree q3 = new QuestionThree();
-        q3.tabuSearch();
+//        QuestionThree q3 = new QuestionThree();
+//        q3.tabuSearch();
+
+        QuestionFive q5 = new QuestionFive();
     }
 }

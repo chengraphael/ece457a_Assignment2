@@ -9,6 +9,7 @@ public class Node {
     public int distance;
     public double realDistance;
     public Node parent;
+    public int serviceTime; //For Q5
 
     public Node(int x, int y) {
         this.x = x;
