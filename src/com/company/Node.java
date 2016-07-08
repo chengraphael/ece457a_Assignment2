@@ -16,9 +16,18 @@ public class Node {
         this.y = y;
     }
 
+    public int getCost() {
+        if (parent == null) {
+            return 0;
+        } else {
+            return parent.getCost() + 1;
+        }
+    }
+
     public void print() {
         System.out.print("Final coordinates: (" + x + ", " + y + ") by ");
         this.printPath();
+        System.out.println("Path cost: " + getCost());
     }
 
     public void printPath() {

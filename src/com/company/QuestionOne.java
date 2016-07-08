@@ -85,6 +85,7 @@ public class QuestionOne {
         while(!queue.isEmpty()) {
             Node currentNode = queue.remove();
             if (currentNode.x == exitX && currentNode.y == exitY) {
+                System.out.println("Nodes explored: " + hashset.size());
                 currentNode.print();
                 break;
             }
@@ -149,6 +150,7 @@ public class QuestionOne {
         while(!stack.isEmpty()) {
             Node currentNode = stack.pop();
             if (currentNode.x == exitX && currentNode.y == exitY) {
+                System.out.println("Nodes explored: " + hashset.size());
                 currentNode.print();
                 break;
             }
@@ -214,6 +216,7 @@ public class QuestionOne {
             List<Node> list = new ArrayList<>();
             Node currentNode = queue.remove(0);
             if (currentNode.x == exitX && currentNode.y == exitY) {
+                System.out.println("Nodes explored: " + hashset.size());
                 currentNode.print();
                 break;
             }
