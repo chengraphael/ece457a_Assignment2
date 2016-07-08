@@ -15,6 +15,7 @@ public class QuestionThree {
     int[][] flow;
     int cost;
     int numIterations = 0;
+    int tabuListSize = 10;
 
     public QuestionThree() {
         list = new ArrayList<>();
@@ -96,9 +97,20 @@ public class QuestionThree {
                 }
             });
 
-            Pair pair = candidateList.remove(0);
+            int c = 0;
+
+            Pair pair = candidateList.get(c);
             while (tabuList[list.get(pair.i).deptNo - 1][list.get(pair.j).deptNo - 1] != 0) {
-                pair = candidateList.remove(0);
+                c++;
+                pair = candidateList.get(c);
+            }
+
+            //aspiration
+            if(pair.cost > 0){
+                pair = candidateList.get(0);
+                if(tabuList[list.get(pair.i).deptNo - 1][list.get(pair.j).deptNo - 1] > tabuListSize - 1){
+                    pair = candidateList.get(1);
+                }
             }
 
             // Swap
@@ -116,7 +128,7 @@ public class QuestionThree {
                         number--;
                 }
             }
-            tabuList[list.get(pair.i).deptNo - 1][list.get(pair.j).deptNo - 1] = 10;
+            tabuList[list.get(pair.i).deptNo - 1][list.get(pair.j).deptNo - 1] = tabuListSize;
         }
 
         System.out.println(heuristicFunction(list));

@@ -6,6 +6,7 @@ public class Main {
 	// write your code here
 //        System.out.println("Hello World!");
 //        QuestionOne q1 = new QuestionOne(25);
+//        q1.setPositions(0, 0, 24, 24);
 //        System.out.println("Using breadth-first search...");
 //        q1.useBFS();
 //        System.out.println("Using depth-first search...");
