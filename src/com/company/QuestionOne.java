@@ -96,7 +96,7 @@ public class QuestionOne {
             // currentNode North
             currentX = currentNode.x;
             currentY = currentNode.y - 1;
-            if (currentY > -1 && currentY < gridLength && !walls.get(currentX).contains(currentY) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
+            if (currentY > -1 && currentY < gridLength && !walls.get(currentY).contains(currentX) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
                 Node childNode = new Node(currentX, currentY);
                 childNode.distance = currentNode.distance + 1;
                 childNode.parent = currentNode;
@@ -107,7 +107,7 @@ public class QuestionOne {
             // currentNode South
             currentX = currentNode.x;
             currentY = currentNode.y + 1;
-            if (currentY > -1 && currentY < gridLength && !walls.get(currentX).contains(currentY) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
+            if (currentY > -1 && currentY < gridLength && !walls.get(currentY).contains(currentX) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
                 Node childNode = new Node(currentX, currentY);
                 childNode.distance = currentNode.distance + 1;
                 childNode.parent = currentNode;
@@ -118,7 +118,7 @@ public class QuestionOne {
             // currentNode East
             currentX = currentNode.x + 1;
             currentY = currentNode.y;
-            if (currentX > -1 && currentX < gridLength && !walls.get(currentX).contains(currentY) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
+            if (currentX > -1 && currentX < gridLength && !walls.get(currentY).contains(currentX) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
                 Node childNode = new Node(currentX, currentY);
                 childNode.distance = currentNode.distance + 1;
                 childNode.parent = currentNode;
@@ -129,7 +129,7 @@ public class QuestionOne {
             // CurrentNode West
             currentX = currentNode.x - 1;
             currentY = currentNode.y;
-            if (currentX > -1 && currentX < gridLength && !walls.get(currentX).contains(currentY) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
+            if (currentX > -1 && currentX < gridLength && !walls.get(currentY).contains(currentX) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
                 Node childNode = new Node(currentX, currentY);
                 childNode.distance = currentNode.distance + 1;
                 childNode.parent = currentNode;
@@ -161,7 +161,7 @@ public class QuestionOne {
             // currentNode North
             currentX = currentNode.x;
             currentY = currentNode.y - 1;
-            if (currentY > -1 && currentY < gridLength && !walls.get(currentX).contains(currentY) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
+            if (currentY > -1 && currentY < gridLength && !walls.get(currentY).contains(currentX) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
                 Node childNode = new Node(currentX, currentY);
                 childNode.distance = currentNode.distance + 1;
                 childNode.parent = currentNode;
@@ -172,7 +172,7 @@ public class QuestionOne {
             // currentNode South
             currentX = currentNode.x;
             currentY = currentNode.y + 1;
-            if (currentY > -1 && currentY < gridLength && !walls.get(currentX).contains(currentY) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
+            if (currentY > -1 && currentY < gridLength && !walls.get(currentY).contains(currentX) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
                 Node childNode = new Node(currentX, currentY);
                 childNode.distance = currentNode.distance + 1;
                 childNode.parent = currentNode;
@@ -183,7 +183,7 @@ public class QuestionOne {
             // currentNode East
             currentX = currentNode.x + 1;
             currentY = currentNode.y;
-            if (currentX > -1 && currentX < gridLength && !walls.get(currentX).contains(currentY) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
+            if (currentX > -1 && currentX < gridLength && !walls.get(currentY).contains(currentX) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
                 Node childNode = new Node(currentX, currentY);
                 childNode.distance = currentNode.distance + 1;
                 childNode.parent = currentNode;
@@ -194,7 +194,7 @@ public class QuestionOne {
             // CurrentNode West
             currentX = currentNode.x - 1;
             currentY = currentNode.y;
-            if (currentX > -1 && currentX < gridLength && !walls.get(currentX).contains(currentY) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
+            if (currentX > -1 && currentX < gridLength && !walls.get(currentY).contains(currentX) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
                 Node childNode = new Node(currentX, currentY);
                 childNode.distance = currentNode.distance + 1;
                 childNode.parent = currentNode;
@@ -227,10 +227,10 @@ public class QuestionOne {
             // currentNode North
             currentX = currentNode.x;
             currentY = currentNode.y - 1;
-            if (currentY > -1 && currentY < gridLength && !walls.get(currentX).contains(currentY) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
+            if (currentY > -1 && currentY < gridLength && !walls.get(currentY).contains(currentX) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
                 Node childNode = new Node(currentX, currentY);
                 childNode.distance = currentNode.distance + 1;
-                childNode.realDistance = Math.sqrt(Math.pow(exitX - currentX, 2) + Math.pow((exitY - currentY),2));
+                childNode.realDistance = Math.sqrt(Math.pow(exitX - currentX, 2) + Math.pow((exitY - currentY), 2));
                 childNode.parent = currentNode;
                 list.add(childNode);
                 hashset.add((currentX) * gridLength + (currentY + 1));
@@ -239,10 +239,10 @@ public class QuestionOne {
             // currentNode South
             currentX = currentNode.x;
             currentY = currentNode.y + 1;
-            if (currentY > -1 && currentY < gridLength && !walls.get(currentX).contains(currentY) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
+            if (currentY > -1 && currentY < gridLength && !walls.get(currentY).contains(currentX) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
                 Node childNode = new Node(currentX, currentY);
                 childNode.distance = currentNode.distance + 1;
-                childNode.realDistance = Math.sqrt(Math.pow(exitX - currentX, 2) + Math.pow((exitY - currentY),2));
+                childNode.realDistance = Math.sqrt(Math.pow(exitX - currentX, 2) + Math.pow((exitY - currentY), 2));
                 childNode.parent = currentNode;
                 list.add(childNode);
                 hashset.add((currentX) * gridLength + (currentY + 1));
@@ -251,10 +251,10 @@ public class QuestionOne {
             // currentNode East
             currentX = currentNode.x + 1;
             currentY = currentNode.y;
-            if (currentX > -1 && currentX < gridLength && !walls.get(currentX).contains(currentY) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
+            if (currentX > -1 && currentX < gridLength && !walls.get(currentY).contains(currentX) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
                 Node childNode = new Node(currentX, currentY);
                 childNode.distance = currentNode.distance + 1;
-                childNode.realDistance = Math.sqrt(Math.pow(exitX - currentX, 2) + Math.pow((exitY - currentY),2));
+                childNode.realDistance = Math.sqrt(Math.pow(exitX - currentX, 2) + Math.pow((exitY - currentY), 2));
                 childNode.parent = currentNode;
                 list.add(childNode);
                 hashset.add((currentX) * gridLength + (currentY + 1));
@@ -263,7 +263,7 @@ public class QuestionOne {
             // CurrentNode West
             currentX = currentNode.x - 1;
             currentY = currentNode.y;
-            if (currentX > -1 && currentX < gridLength && !walls.get(currentX).contains(currentY) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
+            if (currentX > -1 && currentX < gridLength && !walls.get(currentY).contains(currentX) && !hashset.contains((currentX) * gridLength + (currentY + 1))) {
                 Node childNode = new Node(currentX, currentY);
                 childNode.distance = currentNode.distance + 1;
                 childNode.realDistance = Math.sqrt(Math.pow(exitX - currentX, 2) + Math.pow((exitY - currentY),2));
