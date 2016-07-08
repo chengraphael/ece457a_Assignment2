@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Created by Administrator on 7/7/2016.
@@ -14,6 +15,11 @@ import java.util.HashMap;
 public class QuestionFive {
     HashMap<Integer, Node> coordinates;
     HashMap<Integer, ArrayList<Integer>> routes;
+    double alpha = 0.85;
+    double temperature = 1000;
+    int iterations = 0;
+    int numCars = 5;
+    int bestCost = 10000;
 
     public QuestionFive(){
         String file = "A-n32-k5.vrp";
@@ -56,45 +62,26 @@ public class QuestionFive {
             e.printStackTrace();
         }
 
-        ArrayList<Integer> route1 = new ArrayList<>(Arrays.asList(new Integer[]{2, 3, 4, 5, 6, 7}));
-//        route1.add(2);
-//        route1.add(3);
-//        route1.add(4);
-//        route1.add(5);
-//        route1.add(6);
-//        route1.add(7);
+//        ArrayList<Integer> route1 = new ArrayList<>(Arrays.asList(new Integer[]{2, 3, 4, 5, 6, 7}));
+//
+//        ArrayList<Integer> route2 = new ArrayList<>(Arrays.asList(new Integer[]{8, 9, 10, 11, 12, 13}));
+//
+//        ArrayList<Integer> route3 = new ArrayList<>(Arrays.asList(new Integer[]{14, 15, 16, 17, 18, 19}));
+//
+//        ArrayList<Integer> route4 = new ArrayList<>(Arrays.asList(new Integer[]{20, 21, 22, 23, 24, 25}));
+//
+//        ArrayList<Integer> route5 = new ArrayList<>(Arrays.asList(new Integer[]{26, 27, 28, 29, 30, 31, 32}));
 
-        ArrayList<Integer> route2 = new ArrayList<>(Arrays.asList(new Integer[]{8, 9, 10, 11, 12, 13}));
-//        route2.add(8);
-//        route2.add(9);
-//        route2.add(10);
-//        route2.add(11);
-//        route2.add(12);
-//        route2.add(13);
+        ArrayList<Integer> route1 = new ArrayList<>(Arrays.asList(new Integer[]{22, 32, 21 , 18, 14, 7, 27}));
 
-        ArrayList<Integer> route3 = new ArrayList<>(Arrays.asList(new Integer[]{14, 15, 16, 17, 18, 19}));
-//        route3.add(14);
-//        route3.add(15);
-//        route3.add(16);
-//        route3.add(17);
-//        route3.add(18);
-//        route3.add(19);
+        ArrayList<Integer> route2 = new ArrayList<>(Arrays.asList(new Integer[]{13, 2, 16, 30}));
 
-        ArrayList<Integer> route4 = new ArrayList<>(Arrays.asList(new Integer[]{20, 21, 22, 23, 24, 25}));
-//        route4.add(20);
-//        route4.add(21);
-//        route4.add(22);
-//        route4.add(23);
-//        route4.add(24);
-//        route4.add(25);
+        ArrayList<Integer> route3 = new ArrayList<>(Arrays.asList(new Integer[]{28,25}));
 
-        ArrayList<Integer> route5 = new ArrayList<>(Arrays.asList(new Integer[]{26, 27, 28, 29, 30, 31, 32}));
-//        route5.add(26);
-//        route5.add(27);
-//        route5.add(28);
-//        route5.add(29);
-//        route5.add(30);
-//        route5.add(31);
+        ArrayList<Integer> route4 = new ArrayList<>(Arrays.asList(new Integer[]{30, 19, 9, 10, 23, 16, 11, 26, 6, 21}));
+
+        ArrayList<Integer> route5 = new ArrayList<>(Arrays.asList(new Integer[]{15, 29, 12, 5, 24, 4, 3, 6}));
+
 
         routes.put(1, route1);
         routes.put(2, route2);
@@ -102,12 +89,52 @@ public class QuestionFive {
         routes.put(4, route4);
         routes.put(5, route5);
 
-        System.out.println(calculateCost());
+//        System.out.println(calculateCost());
 
     }
 
-    public void simulatedAnnealing(){
+    public int simulatedAnnealing(){
+        Random rand = new Random();
 
+        while(temperature > 1){
+            int currentCost = calculateCost();
+
+            int randomRoute1 = rand.nextInt((5 - 1) + 1) + 1;
+            int randomRouteSize = routes.get(randomRoute1).size() - 1;
+            int randomLocation1 = rand.nextInt((randomRouteSize - 0) + 1);
+
+            int randomRoute2 = rand.nextInt((5 - 1) + 1) + 1;
+            int randomRouteSize2 = routes.get(randomRoute2).size() - 1;
+            int randomLocation2 = rand.nextInt((randomRouteSize2 - 0) + 1);
+
+            int tempLocation = routes.get(randomRoute1).get(randomLocation1);
+            routes.get(randomRoute1).set(randomLocation1, routes.get(randomRoute2).get(randomLocation2));
+            routes.get(randomRoute2).set(randomLocation2, tempLocation);
+
+            if(acceptance(calculateCost() - currentCost)){
+                iterations++;
+                if(calculateCost() < bestCost){
+                    bestCost = calculateCost();
+                }
+            } else {
+                tempLocation = routes.get(randomRoute1).get(randomLocation1);
+                routes.get(randomRoute1).set(randomLocation1, routes.get(randomRoute2).get(randomLocation2));
+                routes.get(randomRoute2).set(randomLocation2, tempLocation);
+            }
+
+            if(iterations == 100){
+                iterations = 0;
+                temperature = temperature * alpha;
+            }
+        }
+        return calculateCost();
+    }
+
+    public boolean acceptance(int deltaCost){
+        double acceptance = Math.exp(-deltaCost/temperature);
+        double random = Math.random();
+
+        return random <= acceptance;
     }
 
     public int calculateCost(){
