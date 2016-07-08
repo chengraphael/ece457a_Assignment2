@@ -2,6 +2,7 @@ package com.company;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Ingenious on 2016-07-06.
@@ -20,6 +21,17 @@ public class QuestionThree {
         for (int i = 0; i < 20; i++) {
             list.add(new DeptNode((i / 5), i % 5, i + 1));
 //            System.out.println((i / 5) + ", " + i % 5 + ", " + (i + 1));
+        }
+
+        // Shuffle
+        int listSize = list.size();
+        for (int i = 0; i < listSize - 1; i++) {
+            int j = ThreadLocalRandom.current().nextInt(i, listSize);
+            int tempDept = list.get(i).deptNo;
+            int tempDept2 = list.get(j).deptNo;
+            list.get(j).deptNo = tempDept;
+            list.get(i).deptNo = tempDept2;
+            System.out.println(tempDept2);
         }
 
         String csvFile = "Flow.csv";
@@ -41,6 +53,8 @@ public class QuestionThree {
 
                 rowCount++;
             }
+
+            br.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -53,8 +67,10 @@ public class QuestionThree {
 
     public void tabuSearch() {
         tabuList = new int[20][20];
-        while (cost > 1310) {
+        while (numIterations < 100) {
             candidateList = new ArrayList<Pair>();
+
+            cost = heuristicFunction(list);
 
             for (int i = 0; i < 20; i++) {
                 for (int j = i + 1; j < 20; j++) {
@@ -63,7 +79,7 @@ public class QuestionThree {
 
                     list.get(i).deptNo = tempDept2;
                     list.get(j).deptNo = tempDept;
-                    Pair pair = new Pair(i, j, heuristicFunction(list));
+                    Pair pair = new Pair(i, j, heuristicFunction(list) - cost);
                     candidateList.add(pair);
 
                     list.get(i).deptNo = tempDept;
@@ -86,10 +102,11 @@ public class QuestionThree {
             }
 
             // Swap
-            int tempDept = list.get(pair.i).deptNo;
-            list.get(pair.i).deptNo = list.get(pair.j).deptNo;
-            list.get(pair.j).deptNo = tempDept;
-            cost = pair.cost;
+            if (pair.cost <= 0) {
+                int tempDept = list.get(pair.i).deptNo;
+                list.get(pair.i).deptNo = list.get(pair.j).deptNo;
+                list.get(pair.j).deptNo = tempDept;
+            }
 
             numIterations++;
 
@@ -102,7 +119,7 @@ public class QuestionThree {
             tabuList[list.get(pair.i).deptNo - 1][list.get(pair.j).deptNo - 1] = 10;
         }
 
-        System.out.println(cost);
+        System.out.println(heuristicFunction(list));
         System.out.println(numIterations);
     }
 
